@@ -33,11 +33,12 @@ public class SpringKafkaRegistryApplication {
 			
 	}
 	
-	@RequestMapping("/orders")
-	public String doIt(@RequestParam(value="name", defaultValue="Order-avro") String name)
+	@RequestMapping("/persona")
+	public String doIt(@RequestParam(value="name", defaultValue="persona") String name)
 	{
 		
 		String ret=name;
+		System.out.println("Topic: " +ret);
 		try
 		{
 			ret += "<br>Using Bootstrap : " + bootstrap;
@@ -60,22 +61,17 @@ public class SpringKafkaRegistryApplication {
 		return ret;
 	}
 	
-	private Order sendMsg(Properties properties, String topic)
+	private Persona sendMsg(Properties properties, String topic)
 	{
-		Producer<String, Order> producer = new KafkaProducer<String, Order>(properties);
+		Producer<String, Persona> producer = new KafkaProducer<String, Persona>(properties);
 
-        Order order = Order.newBuilder()
-        		.setOrderId("OId234")
-        		.setCustomerId("CId432")
-        		.setSupplierId("SId543")
-                .setItems(4)
-                .setFirstName("Sunil")
-                .setLastName("V")
-                .setPrice(178f)
-                .setWeight(75f)
+		Persona persona = Persona.newBuilder()
+        		.setId("1")
+        		.setNombre("Bill")
+        		.setApellido("Gates")
                 .build();
 
-        ProducerRecord<String, Order> producerRecord = new ProducerRecord<String, Order>(topic, order);
+        ProducerRecord<String, Persona> producerRecord = new ProducerRecord<String, Persona>(topic, persona);
 
         
         producer.send(producerRecord, new Callback() {
@@ -92,7 +88,7 @@ public class SpringKafkaRegistryApplication {
         producer.flush();
         producer.close();
         
-        return order;
+        return persona;
 	}
 	
 	

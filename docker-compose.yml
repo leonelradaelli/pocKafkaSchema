@@ -53,6 +53,16 @@ services:
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
       SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
-  
+
+  schema-registry-ui:
+    image:  landoop/schema-registry-ui
+    hostname: schema-registry-ui
+    container_name: schema-registry-ui
+    depends_on:
+      - schema-registry
+    ports:
+      - "8000:8000"
+    environment:
+      SCHEMAREGISTRY_URL: http://schema-registry:8081
 volumes:
     mi2: {}
