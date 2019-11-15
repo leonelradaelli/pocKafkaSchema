@@ -1,0 +1,11 @@
+{
+     "type": "record",
+     "namespace": "com.sunilvb.demo",
+     "name": "Persona",
+     "version": "1",
+     "fields": [
+       { "name": "_id", "type": "string"},
+       { "name": "nombre", "type": "string"},
+       { "name": "apellido", "type": "string"}
+     ]
+}order.avsc

@@ -337,3 +337,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md
 * Hat tip to anyone who's code was used
 * Inspiration from open source contributors
 * All open source and commertial components used in this sample are maintained and produced by respective organization
+# pocKafkaSchema
