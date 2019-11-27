@@ -32,15 +32,15 @@ public class SpringKafkaRegistryApplication {
 		SpringApplication.run(SpringKafkaRegistryApplication.class, args);
 			
 	}
-	
-	@RequestMapping("/persona")
-	public String doIt(@RequestParam(value="name", defaultValue="persona") String name)
+	@RequestMapping("/persona") 	// Url htpp que escuchara
+	public String doIt(@RequestParam(value="topic", defaultValue="persona") String topic) // Parametros  nombre del topic
 	{
 		
-		String ret=name;
+		String ret=topic;
 		System.out.println("Topic: " +ret);
 		try
 		{
+
 			ret += "<br>Using Bootstrap : " + bootstrap;
 			ret += "<br>Using Bootstrap : " + registry;
 			
@@ -54,7 +54,7 @@ public class SpringKafkaRegistryApplication {
 			properties.setProperty("value.serializer", KafkaAvroSerializer.class.getName());
 			properties.setProperty("schema.registry.url", registry);
 			
-			ret += sendMsg(properties, name);
+			ret += sendMsg(properties, topic);
 		}
 		catch(Exception ex){ ret+="<br>"+ex.getMessage();}
 		
@@ -63,9 +63,11 @@ public class SpringKafkaRegistryApplication {
 	
 	private Persona sendMsg(Properties properties, String topic)
 	{
+		// Se define un productor con las propiedades anteriores
 		Producer<String, Persona> producer = new KafkaProducer<String, Persona>(properties);
 
-		Persona persona = Persona.newBuilder()
+		// Se crea una persona con datos hardcodeados (podrian venir por parametros, pero no es lo que nos interesa mostrar)
+		Persona persona = Persona.newBuilder()// ES EL OBJETO PERSONA el que define la estructura en base a persona.avro
         		.setId("1")
         		.setNombre("Bill")
         		.setApellido("Gates")
